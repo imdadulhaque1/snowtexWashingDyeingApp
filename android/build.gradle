@@ -1,0 +1,24 @@
+buildscript {
+    ext {
+        buildToolsVersion = "34.0.0"
+        minSdkVersion = 21
+        compileSdkVersion = 35  // Updated to support Fingerprint API
+        targetSdkVersion = 34
+        ndkVersion = "25.1.8937393"
+        kotlinVersion = "1.9.10"  // Recommended to use the latest Kotlin version
+        playServicesLocationVersion = "21.0.1"
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // Specify the version of the Android Gradle Plugin
+        classpath("com.android.tools.build:gradle:8.1.1") // Update to a stable version
+        classpath("com.facebook.react:react-native-gradle-plugin") // Automatically uses compatible versions
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion") // Use kotlinVersion variable
+    }
+}
+
+// Apply the React Native Gradle Plugin
+apply plugin: "com.facebook.react.rootproject"
