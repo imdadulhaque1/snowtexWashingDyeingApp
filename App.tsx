@@ -11,6 +11,8 @@ import {MenuProvider} from 'react-native-popup-menu';
 import {NavigationContainer} from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import MainStack from '@views/navigators/MainStack';
+import {Provider} from 'react-redux';
+import store from '@rtk/store/store';
 
 const App = () => {
   const nav = useRef(null);
@@ -27,10 +29,12 @@ const App = () => {
   return (
     <ErrorBoundary FallbackComponent={CustomFallback}>
       <MenuProvider>
-        <NavigationContainer ref={nav}>
-          <MainStack />
-          <Toast position="top" topOffset={0} />
-        </NavigationContainer>
+        <Provider store={store}>
+          <NavigationContainer ref={nav}>
+            <MainStack />
+            <Toast position="top" topOffset={0} />
+          </NavigationContainer>
+        </Provider>
       </MenuProvider>
     </ErrorBoundary>
   );

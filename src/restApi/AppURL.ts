@@ -23,8 +23,11 @@ class AppURL {
     return `${companyBaseURL}androidapps/GetMyProfileInformationApk?token=${remarks}`;
   }
 
-  static getCivilData(workDate: string, cardNo: string): string {
-    return `${this.sslURL}anotherapps/GetJobDetailsInformation?workDate=${workDate}&cardNo=${cardNo}`;
+  static getReverseGeocode(geoLati: string, geoLongi: string): string {
+    return `https://api-bdc.net/data/reverse-geocode-client?latitude=${geoLati}&longitude=${geoLongi}&localityLanguage=en`;
+  }
+  static postPunch(payrollBaseURL: string): string {
+    return `${payrollBaseURL}androidapps/postpunchentryApk`;
   }
 }
 
