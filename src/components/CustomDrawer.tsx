@@ -1,9 +1,6 @@
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import React, {FC, useEffect, useState} from 'react';
-import * as NavigationService from 'path';
-
 import {
-  ActivityIndicator,
   Dimensions,
   Image,
   Pressable,
@@ -66,6 +63,16 @@ const CustomDrawer = () => {
     !getAccessableInfo?.menus,
   ]);
 
+  const logoutHandler = async () => {
+    await AsyncStorage.removeItem('AsyncUserInfo');
+
+    // setLoginInfo(null);
+    navigation.reset({
+      // @ts-ignore
+      routes: [{name: 'LoginScreen'}],
+    });
+  };
+
   return (
     <SafeAreaView style={{backgroundColor: COLORS.snowColor}}>
       <MyStatusBar
@@ -99,7 +106,9 @@ const CustomDrawer = () => {
                 fontSize: width > 550 ? width / 30 : width / 22,
               },
             ]}>
-            Snowtex Group
+            {getAccessableInfo?.userInfo?.Company
+              ? getAccessableInfo?.userInfo?.Company
+              : 'Snowtex Group'}
           </Text>
           <Text
             style={[
@@ -411,11 +420,7 @@ const CustomDrawer = () => {
         </ScrollView>
       </View>
 
-      <Pressable
-        style={styles.bottomBtnContainer}
-        onPress={async () => {
-          console.log('Click to logout...!');
-        }}>
+      <Pressable style={styles.bottomBtnContainer} onPress={logoutHandler}>
         <Text style={styles.backToCompanyTxt}>Logout</Text>
       </Pressable>
     </SafeAreaView>
@@ -428,6 +433,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
+    backgroundColor: COLORS.errorColor,
+    paddingVertical: 8,
   },
   bottomInnerContainerStyle: {
     height: width > 650 ? width / 10 : width / 7,
@@ -437,7 +444,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   backToCompanyTxt: {
-    color: COLORS.white,
+    color: COLORS.black,
     alignSelf: 'center',
     fontSize: width > 600 ? width / 30 : width / 22,
     fontFamily: 'WorkSans-Regular',

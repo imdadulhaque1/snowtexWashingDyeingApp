@@ -1,6 +1,5 @@
 class AppURL {
-  static swdlBaseURL: string = 'http://182.160.125.3:93/api/';
-
+  static swdlURL: string = 'http://182.160.125.3:93/api/';
   static sslURL: string = 'http://182.160.125.3:91/api/';
   static solURL: string = 'http://182.160.125.2:91/api/';
   static scoURL: string = 'http://182.160.113.106:91/api/';
@@ -23,11 +22,28 @@ class AppURL {
     return `${companyBaseURL}androidapps/GetMyProfileInformationApk?token=${remarks}`;
   }
 
+  // Punch Entry and Approval API
+
   static getReverseGeocode(geoLati: string, geoLongi: string): string {
     return `https://api-bdc.net/data/reverse-geocode-client?latitude=${geoLati}&longitude=${geoLongi}&localityLanguage=en`;
   }
   static postPunch(payrollBaseURL: string): string {
     return `${payrollBaseURL}androidapps/postpunchentryApk`;
+  }
+  static punchApproveDelete(payrollBaseURL: string): string {
+    return `${payrollBaseURL}androidapps/PostPunchApprovalSaveApk`;
+  }
+
+  // Leave Informations API
+  static getLeaveCategories(payrollBaseURL: string, token: string): string {
+    return `${payrollBaseURL}androidapps/GetLeaveTypesApk?token=${token}`;
+  }
+  static leaveApply(payrollBaseURL: string): string {
+    return `${payrollBaseURL}androidapps/PostLeaveApplySaveApk`;
+  }
+
+  static deleteLeave(payrollBaseURL: string, id: any, token: string): string {
+    return `${payrollBaseURL}androidapps/GetLeaveTransactionDeleteApk?Id=${id}&Token=${token}`;
   }
 }
 

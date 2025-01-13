@@ -21,21 +21,18 @@ import {
   MenuTrigger,
 } from 'react-native-popup-menu';
 import {Text} from 'react-native';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import VersionNumber from 'react-native-version-number';
+import {useAppContext} from '@contextApi/index';
+import {removeApiSegment} from '@utils/handler/splitBaseUrlByAPI';
 import {COLORS} from '@utils/COLORS';
 import MCIcon from './icon/MCIcon';
-// import CustomizedModal from './modal/CustomizedModal';
-import {useAppContext} from '@contextApi/index';
-import AppURL from '@restApi/AppURL';
-import axios from 'axios';
-// import {employeeInfoInterface} from '@src/interface/EmployeeInfoInterface';
-// import {formatDate} from './comHandler/formatDate';
+import CustomizedModal from './modal/CustomizedModal';
 import profileStyle from '@utils/comStyle/profileStyle';
+import {formatDate} from '@utils/handler/formatDate';
 import NoInternetModal from './modal/NoInternetModal';
-import VersionNumber from 'react-native-version-number';
-import {removeApiSegment} from '@utils/handler/splitBaseUrlByAPI';
-// import {versionCheckFunc} from './comHandler/versionCheckFunc';
+
 const Container = ({children}: any) => {
   const isFocused = useIsFocused();
   const {getAccessableInfo, setAccessableInfo, getVersionInfo, setVersionInfo} =
@@ -88,7 +85,7 @@ const Container = ({children}: any) => {
   useEffect(() => {
     if (
       getAccessableInfo?.payrollLoginInfo?.Token &&
-      !getAccessableInfo?.employeeInfo?.EmployeeID
+      !getAccessableInfo?.userInfo?.EmployeeID
     ) {
       getUserInfoFunc(getAccessableInfo?.payrollLoginInfo?.Token);
     }
@@ -286,10 +283,10 @@ const Container = ({children}: any) => {
                   paddingHorizontal: 2,
                 }}>
                 <Text style={styles.menuText}>
-                  {getAccessableInfo?.employeeInfo?.FullName}
+                  {getAccessableInfo?.userInfo?.FullName}
                 </Text>
                 <Text style={styles.menuText}>
-                  {getAccessableInfo?.employeeInfo?.Designation}
+                  {getAccessableInfo?.userInfo?.Designation}
                 </Text>
               </View>
             </View>
@@ -347,7 +344,7 @@ const Container = ({children}: any) => {
         <Toast position="bottom" topOffset={0} />
       </Appbar>
       {children}
-      {/* <CustomizedModal
+      <CustomizedModal
         isVisible={isModalVisible}
         modalAnimationIn={
           getModalStatus.toLowerCase() === 'myprofile' ? 'zoomIn' : 'flipInX'
@@ -367,10 +364,10 @@ const Container = ({children}: any) => {
                 />
               </View>
               <Text style={styles.profileHeaderTextStyle}>
-                {getAccessableInfo?.employeeInfo?.FullName}
+                {getAccessableInfo?.userInfo?.FullName}
               </Text>
               <Text style={styles.profileHeaderTextStyle}>
-                {getAccessableInfo?.employeeInfo?.Designation}
+                {getAccessableInfo?.userInfo?.Designation}
               </Text>
             </View>
             <View style={styles.messageContainer}>
@@ -382,49 +379,49 @@ const Container = ({children}: any) => {
                 borderTopRightRadius={3}
                 borderTopLeftRadius={3}
                 label="ID"
-                value={getAccessableInfo?.employeeInfo?.Id}
+                value={getAccessableInfo?.userInfo?.Id}
               />
               <ComView
                 label="Employee Id"
-                value={getAccessableInfo?.employeeInfo?.EmployeeID}
+                value={getAccessableInfo?.userInfo?.EmployeeID}
                 borderBottomColor={COLORS.snowLight60}
                 borderBottomWidth={1}
               />
               <ComView
                 label="Mobile"
-                value={getAccessableInfo?.employeeInfo?.MobileNo}
+                value={getAccessableInfo?.userInfo?.MobileNo}
                 borderBottomColor={COLORS.snowLight60}
                 borderBottomWidth={1}
               />
               <ComView
                 label="Punch Card No."
-                value={getAccessableInfo?.employeeInfo?.PunchCardNo}
+                value={getAccessableInfo?.userInfo?.PunchCardNo}
                 borderBottomColor={COLORS.snowLight60}
                 borderBottomWidth={1}
               />
               <ComView
                 label="National Id"
-                value={getAccessableInfo?.employeeInfo?.NationalId}
+                value={getAccessableInfo?.userInfo?.NationalId}
                 borderBottomColor={COLORS.snowLight60}
                 borderBottomWidth={1}
               />
               <ComView
                 label="Bank Acc. No."
-                value={getAccessableInfo?.employeeInfo?.BankAcNo}
+                value={getAccessableInfo?.userInfo?.BankAcNo}
                 borderBottomColor={COLORS.snowLight60}
                 borderBottomWidth={1}
               />
               <ComView
                 label="TIN No."
-                value={getAccessableInfo?.employeeInfo?.TinNo}
+                value={getAccessableInfo?.userInfo?.TinNo}
                 borderBottomColor={COLORS.snowLight60}
                 borderBottomWidth={1}
               />
               <ComView
                 label="Date of Join"
                 value={
-                  getAccessableInfo?.employeeInfo?.Doj
-                    ? formatDate(getAccessableInfo?.employeeInfo?.Doj)
+                  getAccessableInfo?.userInfo?.Doj
+                    ? formatDate(getAccessableInfo?.userInfo?.Doj)
                     : ''
                 }
                 borderBottomColor={COLORS.snowLight60}
@@ -432,19 +429,19 @@ const Container = ({children}: any) => {
               />
               <ComView
                 label="Department"
-                value={getAccessableInfo?.employeeInfo?.Department}
+                value={getAccessableInfo?.userInfo?.Department}
                 borderBottomColor={COLORS.snowLight60}
                 borderBottomWidth={1}
               />
               <ComView
                 label="Section"
-                value={getAccessableInfo?.employeeInfo?.Section}
+                value={getAccessableInfo?.userInfo?.Section}
                 borderBottomColor={COLORS.snowLight60}
                 borderBottomWidth={1}
               />
               <ComView
                 label="Company"
-                value={getAccessableInfo?.employeeInfo?.Company}
+                value={getAccessableInfo?.userInfo?.Company}
                 borderBottomColor={COLORS.snowLight60}
                 borderBottomWidth={1}
                 borderBottomLeftRadius={3}
@@ -453,7 +450,7 @@ const Container = ({children}: any) => {
             </View>
           </>
         )}
-      </CustomizedModal> */}
+      </CustomizedModal>
       {isFocused && <NoInternetModal />}
     </SafeAreaView>
   );

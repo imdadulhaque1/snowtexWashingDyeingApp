@@ -72,6 +72,8 @@ const LoginScreen: FC<Props> = props => {
       ? AppURL.cnsURL
       : empId.toString() === '05'
       ? AppURL.spuURL
+      : empId.toString() === '07'
+      ? AppURL.swdlURL
       : null);
 
   const loginHandler = async (userId: any, password: any) => {

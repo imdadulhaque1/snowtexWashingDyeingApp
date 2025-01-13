@@ -6,6 +6,8 @@ import DashboardScreen from '@views/mainScreen/DashboardScreen';
 import PunchEntryScreen from '@views/entry/PunchEntryScreen';
 import PunchApprovalScreen from '@views/approval/PunchApprovalScreen';
 import CustomDrawer from '@components/CustomDrawer';
+import ProfileScreen from '@views/mainScreen/ProfileScreen';
+import LeaveInformationScreen from '@views/leaveInfo/LeaveInformationScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -24,6 +26,16 @@ const routes = [
     id: 3,
     route: 'Punch Approval',
     component: PunchApprovalScreen,
+  },
+  {
+    id: 4,
+    route: 'My Profile',
+    component: ProfileScreen,
+  },
+  {
+    id: 5,
+    route: 'Leave Information',
+    component: LeaveInformationScreen,
   },
 ];
 
