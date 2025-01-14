@@ -74,7 +74,7 @@ class FingerprintModule(reactContext: ReactApplicationContext) : ReactContextBas
 
                 val promptInfo = BiometricPrompt.PromptInfo.Builder()
                     .setTitle("Snowtex Fingerprint Authentication")
-                    .setSubtitle("Login to Snowtex Payroll by your fingerprint")
+                    .setSubtitle("Login to Snowtex companies by your fingerprint")
                     .setNegativeButtonText("Cancel")
                     .build()
 

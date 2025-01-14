@@ -86,8 +86,6 @@ const PunchApprovalScreen: FC<Props> = props => {
       TextMode: data?.TextMode,
     };
 
-    // console.log('punchData: ', JSON.stringify(punchData, null, 2));
-
     try {
       const res = await axios.post(
         AppURL.punchApproveDelete(

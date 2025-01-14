@@ -63,6 +63,14 @@ const LeaveHistoryScreen: FC<Props> = props => {
       ...prev,
       isDeleting: true,
     }));
+    console.log(
+      AppURL.deleteLeave(
+        `${getAccessableInfo?.loginInfo?.loginBaseURL}`,
+        id,
+        token,
+      ),
+    );
+
     try {
       const deleteRes = await axios.get(
         AppURL.deleteLeave(
@@ -103,6 +111,8 @@ const LeaveHistoryScreen: FC<Props> = props => {
   const handleRefresh = () => {
     leaveHistoryRefetch();
   };
+
+  // Please ignore this leave cause of the testing purpose applied and it will be deleted after testing.
 
   const formatDesignation = (designation: any) => {
     const words = designation.trim().split(' ');

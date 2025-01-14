@@ -135,8 +135,6 @@ const CustomDrawer = () => {
                     <TouchableOpacity
                       activeOpacity={0.8}
                       onPress={() => {
-                        console.log('route?.Name: ', route?.Name);
-
                         route?.Id === menuId
                           ? setMenuId(undefined)
                           : setMenuId(route?.Id);

@@ -460,7 +460,7 @@ const PunchEntryScreen = () => {
                                       ? screenWidth / 23
                                       : screenWidth / 13
                                   }
-                                  name="eye"
+                                  name="map-marker"
                                 />
                               </Pressable>
                               <TblComView
