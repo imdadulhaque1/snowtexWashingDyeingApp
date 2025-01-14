@@ -32,6 +32,8 @@ import CustomizedModal from './modal/CustomizedModal';
 import profileStyle from '@utils/comStyle/profileStyle';
 import {formatDate} from '@utils/handler/formatDate';
 import NoInternetModal from './modal/NoInternetModal';
+import AppURL from '@restApi/AppURL';
+import {employeeInfoInterface} from '@interface/userInfo/EmployeeInfoInterface';
 
 const Container = ({children}: any) => {
   const isFocused = useIsFocused();
@@ -84,19 +86,19 @@ const Container = ({children}: any) => {
 
   useEffect(() => {
     if (
-      getAccessableInfo?.payrollLoginInfo?.Token &&
+      getAccessableInfo?.loginInfo?.remarks &&
       !getAccessableInfo?.userInfo?.EmployeeID
     ) {
-      getUserInfoFunc(getAccessableInfo?.payrollLoginInfo?.Token);
+      getUserInfoFunc(getAccessableInfo?.loginInfo?.remarks);
     }
-  }, [getAccessableInfo?.payrollLoginInfo?.Token]);
+  }, [getAccessableInfo?.loginInfo?.remarks]);
 
   //TODO:==> Fetching User Info
   const getUserInfoFunc = async (userToken: any) => {
     try {
       const response = await axios.get(
-        AppURL.getUserInfo(
-          `${getAccessableInfo?.payrollBaseURL}/api/`,
+        AppURL.getUserInfoApi(
+          `${getAccessableInfo.loginInfo?.loginBaseURL}`,
           userToken,
         ),
       );
@@ -133,7 +135,7 @@ const Container = ({children}: any) => {
 
       // Update accessableCompany without creating duplicates
       if (asyncStorageData) {
-        asyncStorageData.employeeInfo = userInfo;
+        asyncStorageData.userInfo = userInfo;
 
         await AsyncStorage.setItem(
           'AsyncAccessableInfo',
@@ -142,7 +144,7 @@ const Container = ({children}: any) => {
 
         await setAccessableInfo((prevState: any) => ({
           ...prevState,
-          employeeInfo: userInfo,
+          userInfo: userInfo,
         }));
 
         console.log('Employee Info AsyncStorage updated successfully');
@@ -163,6 +165,23 @@ const Container = ({children}: any) => {
   //     .then(res => setVersionInfo(res))
   //     .catch(error => error && setVersionInfo(null));
   // }, [isFocused, getVersionInfo]);
+
+  // useEffect(() => {
+  //   if (isFocused) {
+  //     const getVersionInfo = async () => {
+  //       try {
+  //         const response = await fetchAppVersionInfo(
+  //           getAccessableInfo.loginInfo?.loginBaseURL,
+  //         );
+  //         setVersionInfo(response);
+  //       } catch (error: any) {
+  //         console.log('Failed to fetch app version info:', error.message);
+  //       }
+  //     };
+
+  //     getVersionInfo();
+  //   }
+  // }, [isFocused]);
 
   const hideModal = () => {
     setIsModalVisible(false);

@@ -45,6 +45,7 @@ const ApplicationFormScreen: FC<Props> = ({getToken}) => {
   >(null);
   const [leaveCategoriesOpen, setLeaveCategoriesOpen] = useState(false);
   const [leaveCategoryValue, setLeaveCategoryValue] = useState(null);
+  const [leaveCategoryLabel, setLeaveCategoryLabel] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [inputValue, setInputValue] = useState({
     reason: '',
@@ -141,14 +142,6 @@ const ApplicationFormScreen: FC<Props> = ({getToken}) => {
   };
 
   const getLeaveCategoriesFunc = async (token: string) => {
-    console.log(
-      'Get leave categories: ',
-      AppURL.getLeaveCategories(
-        `${getAccessableInfo?.loginInfo?.loginBaseURL}`,
-        token,
-      ),
-    );
-
     try {
       const res = await axios.get(
         AppURL.getLeaveCategories(
@@ -157,8 +150,6 @@ const ApplicationFormScreen: FC<Props> = ({getToken}) => {
         ),
       );
       const resResult = res?.data;
-
-      console.log('Leave Categories: ', JSON.stringify(resResult, null, 2));
 
       const formattedLeaveCategories =
         resResult?.map((item: any) => ({
@@ -294,6 +285,9 @@ const ApplicationFormScreen: FC<Props> = ({getToken}) => {
               zIndex={2000}
               zIndexInverse={2000}
               placeholder="Select a Leave Category"
+              onSelectItem={(item: any) => {
+                setLeaveCategoryLabel(item.label);
+              }}
               style={{
                 minHeight:
                   screenWidth > 650 ? screenWidth / 14 : screenWidth / 10,
@@ -401,7 +395,7 @@ const ApplicationFormScreen: FC<Props> = ({getToken}) => {
           </View>
 
           {leaveCategoryValue &&
-            parseInt(leaveCategoryValue) === 498529 &&
+            leaveCategoryLabel.toLowerCase() === 'sl' &&
             // @ts-ignore
             parseInt(totalLeaveDays) >= 2 && (
               <View style={{width: '100%'}}>
@@ -414,11 +408,6 @@ const ApplicationFormScreen: FC<Props> = ({getToken}) => {
                         copyTo: 'cachesDirectory',
                         allowMultiSelection: true,
                       });
-
-                      console.log(
-                        'pickerResults: ',
-                        JSON.stringify(pickerResults, null, 2),
-                      );
 
                       const updatedDocuments = await Promise.all(
                         pickerResults.map(async (file: any) => {
@@ -452,7 +441,7 @@ const ApplicationFormScreen: FC<Props> = ({getToken}) => {
                   }}
                   pickedFiles={pickedSLDocuments.documents}
                   // @ts-ignore
-                  setPickedSLDocuments={setPickedSLDocuments} // Pass the setter function
+                  setPickedSLDocuments={setPickedSLDocuments}
                   inputContainerMarginTop={5}
                   inputLabel="Attached Sick Documents"
                   isRequired={false}
@@ -636,7 +625,7 @@ const styles = StyleSheet.create({
   snackbarContainer: {
     alignSelf: 'center',
     zIndex: 1000,
-    bottom: 100,
+    bottom: 30,
     position: 'absolute',
     width: '70%',
     borderRadius: 30,

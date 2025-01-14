@@ -63,6 +63,7 @@ const LeaveHistoryScreen: FC<Props> = props => {
       ...prev,
       isDeleting: true,
     }));
+
     try {
       const deleteRes = await axios.get(
         AppURL.deleteLeave(
@@ -79,6 +80,8 @@ const LeaveHistoryScreen: FC<Props> = props => {
         type: 'success',
       });
 
+      await leaveHistoryRefetch();
+
       await setDeleteStatus(prev => ({
         ...prev,
         isDeleting: false,
@@ -86,8 +89,6 @@ const LeaveHistoryScreen: FC<Props> = props => {
       setTimeout(() => {
         hideModal();
       }, 500);
-
-      console.log('deleteRes: ', JSON.stringify(leaveDelete, null, 2));
     } catch (error) {
       // @ts-ignore
       console.log('LeaveDeleteFunc Error: ', error?.message);
@@ -103,6 +104,8 @@ const LeaveHistoryScreen: FC<Props> = props => {
   const handleRefresh = () => {
     leaveHistoryRefetch();
   };
+
+  // Please ignore this leave cause of the testing purpose applied and it will be deleted after testing.
 
   const formatDesignation = (designation: any) => {
     const words = designation.trim().split(' ');

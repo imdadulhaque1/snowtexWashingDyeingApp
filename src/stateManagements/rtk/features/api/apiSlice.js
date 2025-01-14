@@ -50,10 +50,6 @@ const payrollApi = createApi({
     // Used to get Data for medical and Online HR Approval
     getMedicalApprovalData: builder.query({
       query: ({baseURL, token, leaveUserType}) => {
-        console.log(
-          `${baseURL}androidapps/GetMedicalHROfOnLineLeaveApprovalsApk?token=${token}&typeId=${leaveUserType}`,
-        );
-
         return `${baseURL}androidapps/GetMedicalHROfOnLineLeaveApprovalsApk?token=${token}&typeId=${leaveUserType}`;
       },
     }),

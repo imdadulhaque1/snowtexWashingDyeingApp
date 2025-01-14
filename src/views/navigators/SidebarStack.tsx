@@ -8,6 +8,9 @@ import PunchApprovalScreen from '@views/approval/PunchApprovalScreen';
 import CustomDrawer from '@components/CustomDrawer';
 import ProfileScreen from '@views/mainScreen/ProfileScreen';
 import LeaveInformationScreen from '@views/leaveInfo/LeaveInformationScreen';
+import GeneralApprovalScreen from '@views/approval/GeneralApprovalScreen';
+import MedicalApprovalScreen from '@views/approval/MedicalApprovalScreen';
+import OnlineHrApprovalScreen from '@views/approval/OnlineHrApprovalScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -36,6 +39,21 @@ const routes = [
     id: 5,
     route: 'Leave Information',
     component: LeaveInformationScreen,
+  },
+  {
+    id: 6,
+    route: 'General Approval',
+    component: GeneralApprovalScreen,
+  },
+  {
+    id: 7,
+    route: 'Medical Approval',
+    component: MedicalApprovalScreen,
+  },
+  {
+    id: 8,
+    route: 'Online HR Approval',
+    component: OnlineHrApprovalScreen,
   },
 ];
 

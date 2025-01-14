@@ -35,9 +35,6 @@ const LeaveBalanceScreen: FC<Props> = props => {
     token: props.getToken,
   });
 
-  console.log(`${getAccessableInfo?.loginInfo?.loginBaseURL}`);
-  console.log(props.getToken);
-
   const handleRefresh = () => {
     leaveHistoryRefetch();
   };

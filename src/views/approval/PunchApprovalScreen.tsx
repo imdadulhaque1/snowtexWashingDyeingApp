@@ -86,8 +86,6 @@ const PunchApprovalScreen: FC<Props> = props => {
       TextMode: data?.TextMode,
     };
 
-    // console.log('punchData: ', JSON.stringify(punchData, null, 2));
-
     try {
       const res = await axios.post(
         AppURL.punchApproveDelete(
@@ -334,7 +332,7 @@ const PunchApprovalScreen: FC<Props> = props => {
                                   }));
                                 }}>
                                 <MCIcon
-                                  name="eye"
+                                  name="map-marker"
                                   color={COLORS.black}
                                   size={
                                     screenWidth > 550
@@ -552,35 +550,38 @@ const PunchApprovalScreen: FC<Props> = props => {
                 confirmModalStyle.modalContainer,
                 {minHeight: screenHeight / 2},
               ]}>
-              <MapView
-                style={{
-                  height: screenHeight / 2.2,
-                  width: '100%',
-                  backgroundColor: COLORS.white,
-                }}
-                // @ts-ignore
-                region={{
-                  // @ts-ignore
-                  latitude: booleanStatus?.actionData?.Lat,
-                  // @ts-ignore
-                  longitude: booleanStatus?.actionData?.Lon,
-                  latitudeDelta: 0.01,
-                  longitudeDelta: 0.01,
-                }}
-                // provider="google"
-              >
-                <Marker
-                  coordinate={{
+              {booleanStatus?.actionData?.Lat &&
+                booleanStatus?.actionData?.Lon && (
+                  <MapView
+                    style={{
+                      height: screenHeight / 2.2,
+                      width: '100%',
+                      backgroundColor: COLORS.white,
+                    }}
                     // @ts-ignore
-                    latitude: booleanStatus?.actionData?.Lat,
-                    // @ts-ignore
-                    longitude: booleanStatus?.actionData?.Lon,
-                  }}
-                  title="Punch Entry Location"
-                  // @ts-ignore
-                  description={booleanStatus?.actionData?.Remarks}
-                />
-              </MapView>
+                    region={{
+                      // @ts-ignore
+                      latitude: booleanStatus?.actionData?.Lat,
+                      // @ts-ignore
+                      longitude: booleanStatus?.actionData?.Lon,
+                      latitudeDelta: 0.01,
+                      longitudeDelta: 0.01,
+                    }}
+                    // provider="google"
+                  >
+                    <Marker
+                      coordinate={{
+                        // @ts-ignore
+                        latitude: booleanStatus?.actionData?.Lat,
+                        // @ts-ignore
+                        longitude: booleanStatus?.actionData?.Lon,
+                      }}
+                      title="Punch Entry Location"
+                      // @ts-ignore
+                      description={booleanStatus?.actionData?.Remarks}
+                    />
+                  </MapView>
+                )}
             </View>
           )}
           {(booleanStatus?.isModalApproveOpen ||

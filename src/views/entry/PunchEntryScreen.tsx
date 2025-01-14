@@ -432,15 +432,15 @@ const PunchEntryScreen = () => {
                                 }}
                               />
                               <Pressable
-                                onPress={() => {
-                                  setIsLoading(prev => ({
-                                    ...prev,
-                                    mapView: true,
-                                  }));
-
-                                  setLocation(prev => ({
+                                onPress={async () => {
+                                  await setLocation(prev => ({
                                     ...prev,
                                     mapLocation: item,
+                                  }));
+
+                                  await setIsLoading(prev => ({
+                                    ...prev,
+                                    mapView: true,
                                   }));
                                 }}
                                 style={[
@@ -460,7 +460,7 @@ const PunchEntryScreen = () => {
                                       ? screenWidth / 23
                                       : screenWidth / 13
                                   }
-                                  name="eye"
+                                  name="map-marker"
                                 />
                               </Pressable>
                               <TblComView
@@ -553,48 +553,52 @@ const PunchEntryScreen = () => {
         />
       )}
 
-      <CustomizedModal
-        isVisible={isLoading.mapView}
-        modalAnimationIn="zoomIn"
-        modalAnimationOut="zoomOut"
-        onClose={hideModal}>
-        <View
-          style={{
-            height: screenHeight / 2,
-            width: '100%',
-            padding: 5,
-            paddingTop: screenWidth > 550 ? 35 : 20,
-          }}>
-          <MapView
-            style={{
-              height: '100%',
-              width: '100%',
-              backgroundColor: COLORS.white,
-            }}
-            region={{
-              // @ts-ignore
-              latitude: location.mapLocation?.Lat,
-              // @ts-ignore
-              longitude: location.mapLocation?.Lon,
-              latitudeDelta: 0.01,
-              longitudeDelta: 0.01,
-            }}
-            // provider="google"
-          >
-            <Marker
-              coordinate={{
-                // @ts-ignore
-                latitude: location.mapLocation?.Lat,
-                // @ts-ignore
-                longitude: location.mapLocation?.Lon,
-              }}
-              title="My current location"
-              // @ts-ignore
-              description={location.mapLocation?.Remarks}
-            />
-          </MapView>
-        </View>
-      </CustomizedModal>
+      {location.mapLocation &&
+        location.mapLocation?.Lon &&
+        location.mapLocation?.Lat && (
+          <CustomizedModal
+            isVisible={isLoading.mapView}
+            modalAnimationIn="zoomIn"
+            modalAnimationOut="zoomOut"
+            onClose={hideModal}>
+            <View
+              style={{
+                height: screenHeight / 2,
+                width: '100%',
+                padding: 5,
+                paddingTop: screenWidth > 550 ? 35 : 20,
+              }}>
+              <MapView
+                style={{
+                  height: '100%',
+                  width: '100%',
+                  backgroundColor: COLORS.white,
+                }}
+                region={{
+                  // @ts-ignore
+                  latitude: location.mapLocation?.Lat,
+                  // @ts-ignore
+                  longitude: location.mapLocation?.Lon,
+                  latitudeDelta: 0.01,
+                  longitudeDelta: 0.01,
+                }}
+                // provider="google"
+              >
+                <Marker
+                  coordinate={{
+                    // @ts-ignore
+                    latitude: location.mapLocation?.Lat,
+                    // @ts-ignore
+                    longitude: location.mapLocation?.Lon,
+                  }}
+                  title="My current location"
+                  // @ts-ignore
+                  description={location.mapLocation?.Remarks}
+                />
+              </MapView>
+            </View>
+          </CustomizedModal>
+        )}
     </Container>
   );
 };

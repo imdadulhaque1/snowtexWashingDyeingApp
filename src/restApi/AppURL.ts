@@ -8,14 +8,11 @@ class AppURL {
   static cnsURL: string = 'http://182.160.117.90:91/api/';
 
   // Authentication APIs
-  // static userLogin: string = `${this.sslURL}androidapps/PostLoginApk`;
 
   static userLogin(companyBaseURL: string): string {
     return `${companyBaseURL}androidapps/PostLoginApk`;
   }
   static getMenusApi(companyBaseURL: string, remarks: string): string {
-    console.log(`${companyBaseURL}androidapps/GetMenuInfoApk?token=${remarks}`);
-
     return `${companyBaseURL}androidapps/GetMenuInfoApk?token=${remarks}`;
   }
   static getUserInfoApi(companyBaseURL: string, remarks: string): string {
@@ -34,7 +31,7 @@ class AppURL {
     return `${payrollBaseURL}androidapps/PostPunchApprovalSaveApk`;
   }
 
-  // Leave Informations API
+  // Leave Informations API(leave apply, fetch and delete )
   static getLeaveCategories(payrollBaseURL: string, token: string): string {
     return `${payrollBaseURL}androidapps/GetLeaveTypesApk?token=${token}`;
   }
