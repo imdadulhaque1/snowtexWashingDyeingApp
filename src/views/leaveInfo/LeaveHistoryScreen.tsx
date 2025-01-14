@@ -63,13 +63,6 @@ const LeaveHistoryScreen: FC<Props> = props => {
       ...prev,
       isDeleting: true,
     }));
-    console.log(
-      AppURL.deleteLeave(
-        `${getAccessableInfo?.loginInfo?.loginBaseURL}`,
-        id,
-        token,
-      ),
-    );
 
     try {
       const deleteRes = await axios.get(
@@ -87,6 +80,8 @@ const LeaveHistoryScreen: FC<Props> = props => {
         type: 'success',
       });
 
+      await leaveHistoryRefetch();
+
       await setDeleteStatus(prev => ({
         ...prev,
         isDeleting: false,
@@ -94,8 +89,6 @@ const LeaveHistoryScreen: FC<Props> = props => {
       setTimeout(() => {
         hideModal();
       }, 500);
-
-      console.log('deleteRes: ', JSON.stringify(leaveDelete, null, 2));
     } catch (error) {
       // @ts-ignore
       console.log('LeaveDeleteFunc Error: ', error?.message);
