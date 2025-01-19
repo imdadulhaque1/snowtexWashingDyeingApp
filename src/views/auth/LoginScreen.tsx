@@ -134,7 +134,7 @@ const LoginScreen: FC<Props> = props => {
           setTimeout(() => {
             // @ts-ignore
             navigation.navigate('Sidebar');
-          }, 500);
+          }, 50);
           setBooleanStatus(prevState => ({
             ...prevState,
             loginStatus: false,
@@ -253,10 +253,6 @@ const LoginScreen: FC<Props> = props => {
   useEffect(() => {
     if (isFocused) {
       retrieveStoredCredentials();
-
-      // DeviceInfo.getAndroidId().then(androidId => {
-      //   console.log('Android ID:', androidId);
-      // });
     }
   }, [isFocused]);
 
@@ -285,6 +281,22 @@ const LoginScreen: FC<Props> = props => {
       <MyStatusBar backgroundColor={COLORS.snowColor} barStyle="dark-content" />
       <Pressable onPress={handleKeyboard}>
         <View style={styles.loginContainer}>
+          <View
+            style={{width: '100%', alignItems: 'center', marginVertical: 10}}>
+            <Text style={styles.cardTitleStyle}>Login</Text>
+            <Text
+              style={[
+                styles.cardTitleStyle,
+                {
+                  textTransform: 'uppercase',
+                  fontSize: width > 650 ? width / 28 : width / 24,
+                  textDecorationLine: 'underline',
+                  textDecorationColor: COLORS.white,
+                },
+              ]}>
+              Snowtex Global Attendance
+            </Text>
+          </View>
           <AuthInput
             inputOnTouchStart={() => {
               setBooleanStatus(prevState => ({
@@ -294,10 +306,10 @@ const LoginScreen: FC<Props> = props => {
               }));
             }}
             inputKeyboardType={'default'}
-            placeholder={'Employee Id'}
+            placeholder={'Employee ID (Must enter an employee ID)'}
             inputLabel="Enter Employee ID"
             labelFontColor={COLORS.white}
-            placeholderTextColor={COLORS.inactiveColor}
+            placeholderTextColor={COLORS.darkInactiveColor}
             inputBorderColor={COLORS.white}
             onChangeText={(txt: any) => {
               setEmployee(prevState => ({
@@ -307,7 +319,7 @@ const LoginScreen: FC<Props> = props => {
             }}
             value={employee?.id}
             inputFontSize={width / 30}
-            labelFontSize={width > 550 ? width / 26 : width / 22}
+            labelFontSize={width > 550 ? width / 28 : width / 24}
             inputTextColor={COLORS.black}
             isRequired={false}
             iconShown={false}
@@ -397,7 +409,7 @@ const LoginScreen: FC<Props> = props => {
             placeholder={'Your Password'}
             inputLabel="Enter Your Password"
             labelFontColor={COLORS.white}
-            placeholderTextColor={COLORS.inactiveColor}
+            placeholderTextColor={COLORS.darkInactiveColor}
             inputBorderColor={COLORS.white}
             onChangeText={(txt: any) => {
               setEmployee(prevState => ({
@@ -407,7 +419,7 @@ const LoginScreen: FC<Props> = props => {
             }}
             value={employee?.password}
             inputFontSize={width / 30}
-            labelFontSize={width > 550 ? width / 26 : width / 22}
+            labelFontSize={width > 550 ? width / 28 : width / 24}
             inputTextColor={COLORS.black}
             isRequired={false}
             requiredTextColor={COLORS.red}
@@ -443,6 +455,7 @@ const LoginScreen: FC<Props> = props => {
                 styles.textStyle,
                 {
                   color: booleanStatus?.remember ? COLORS.white : COLORS.black,
+                  fontSize: width > 550 ? width / 28 : width / 24,
                 },
               ]}>
               Remember Me
@@ -523,6 +536,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: COLORS.snowLight80,
   },
+  cardTitleStyle: {
+    fontFamily: 'WorkSans-SemiBold',
+    color: COLORS.white,
+    fontSize: width > 650 ? width / 26 : width / 22,
+  },
   textStyle: {
     fontSize: 18,
     color: '#111111',
@@ -587,5 +605,3 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
-
-//

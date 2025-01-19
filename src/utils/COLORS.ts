@@ -24,6 +24,7 @@ export const COLORS = {
   white75: '#bfbfbf',
   white60: '#999999',
   white50: '#808080',
+  white40: '#666666',
 
   snowLight105: '#f9fcfd',
   snowLight102: '#f0f5f8',

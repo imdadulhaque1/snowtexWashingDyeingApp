@@ -12,6 +12,7 @@ import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import VersionNumber from 'react-native-version-number';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -22,6 +23,7 @@ import MyStatusBar from './statusBar/MyStatusBar';
 
 const CustomDrawer = () => {
   const isFocused = useIsFocused();
+  let currentVersion = VersionNumber.appVersion;
   const {getLoginInfo, setAccessableInfo, getAccessableInfo} = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
@@ -103,12 +105,10 @@ const CustomDrawer = () => {
               {
                 textAlign: 'center',
                 fontFamily: 'WorkSans-SemiBold',
-                fontSize: width > 550 ? width / 30 : width / 22,
+                fontSize: width > 550 ? width / 35 : width / 25,
               },
             ]}>
-            {getAccessableInfo?.userInfo?.Company
-              ? getAccessableInfo?.userInfo?.Company
-              : 'Snowtex Group'}
+            Snowtex Global Attendance
           </Text>
           <Text
             style={[
@@ -116,10 +116,10 @@ const CustomDrawer = () => {
               {
                 textAlign: 'center',
                 fontFamily: 'WorkSans-Medium',
-                fontSize: width > 550 ? width / 30 : width / 22,
+                fontSize: width > 550 ? width / 35 : width / 25,
               },
             ]}>
-            Version: {1.0}
+            Version: {currentVersion}
           </Text>
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -431,7 +431,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    backgroundColor: COLORS.errorColor,
+    backgroundColor: COLORS.errorLight85,
     paddingVertical: 8,
   },
   bottomInnerContainerStyle: {
