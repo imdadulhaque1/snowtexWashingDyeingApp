@@ -433,15 +433,27 @@ const PunchEntryScreen = () => {
                               />
                               <Pressable
                                 onPress={async () => {
-                                  await setLocation(prev => ({
-                                    ...prev,
-                                    mapLocation: item,
-                                  }));
+                                  if (
+                                    item?.Lon &&
+                                    item?.Lon.toString() !== '0' &&
+                                    item?.Lat &&
+                                    item?.Lat.toString() !== '0'
+                                  ) {
+                                    await setLocation(prev => ({
+                                      ...prev,
+                                      mapLocation: item,
+                                    }));
 
-                                  await setIsLoading(prev => ({
-                                    ...prev,
-                                    mapView: true,
-                                  }));
+                                    await setIsLoading(prev => ({
+                                      ...prev,
+                                      mapView: true,
+                                    }));
+                                  } else {
+                                    ToastMsg({
+                                      text1: 'No location found',
+                                      type: 'error',
+                                    });
+                                  }
                                 }}
                                 style={[
                                   treeReqStyle.tableViewStyle,
@@ -454,7 +466,14 @@ const PunchEntryScreen = () => {
                                   },
                                 ]}>
                                 <MCIcon
-                                  color={COLORS.snowColor}
+                                  color={
+                                    !item?.Lon ||
+                                    item?.Lon.toString() === '0' ||
+                                    !item?.Lat ||
+                                    item?.Lat.toString() === '0'
+                                      ? COLORS.darkInactiveColor
+                                      : COLORS.snowColor
+                                  }
                                   size={
                                     screenWidth > 550
                                       ? screenWidth / 23

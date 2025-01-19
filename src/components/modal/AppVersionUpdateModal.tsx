@@ -8,10 +8,13 @@ import {
 } from 'react-native';
 import React, {FC, useState} from 'react';
 import VersionNumber from 'react-native-version-number';
-import BottomHalfModal from '../../components/modal/ButtomHalfModal';
-import MCIcon from '../../components/MCIcon';
-import {COLORS} from '../../theme/Index';
+// import BottomHalfModal from '../../components/modal/ButtomHalfModal';
+// import MCIcon from '../../components/MCIcon';
+// import {COLORS} from '../../theme/Index';
 import {useAppContext} from '../../stateManagements/contextApi';
+import BottomHalfModal from './BottomHalfModal';
+import {COLORS} from '@utils/COLORS';
+import MCIcon from '@components/icon/MCIcon';
 
 interface Props {
   isAvailableUpdate?: boolean;
@@ -42,7 +45,7 @@ const AppVersionUpdateModal: FC<Props> = ({isAvailableUpdate}) => {
       onClose={() => {}}
       modalAnimationIn="slideInUp"
       modalAnimationOut="slideOutDown"
-      bgCOLOR={COLORS.errorLight97}
+      bgCOLOR={COLORS.errorLight80}
       modalHeight="30%">
       <View
         style={{
@@ -62,7 +65,7 @@ const AppVersionUpdateModal: FC<Props> = ({isAvailableUpdate}) => {
         style={[
           styles.wifiTxtStyle,
           {
-            color: COLORS.primary,
+            color: COLORS.snowColor,
             marginBottom: 10,
           },
         ]}>
@@ -141,7 +144,7 @@ const AppVersionUpdateModal: FC<Props> = ({isAvailableUpdate}) => {
           <MCIcon
             name={'download'}
             size={screenWidth > 550 ? screenWidth / 20 : screenWidth / 15}
-            color={COLORS.darkGray}
+            color={COLORS.darkInactiveColor}
           />
           <Text
             style={[

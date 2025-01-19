@@ -8,7 +8,6 @@ class AppURL {
   static cnsURL: string = 'http://182.160.117.90:91/api/';
 
   // Authentication APIs
-
   static userLogin(companyBaseURL: string): string {
     return `${companyBaseURL}androidapps/PostLoginApk`;
   }
@@ -20,7 +19,6 @@ class AppURL {
   }
 
   // Punch Entry and Approval API
-
   static getReverseGeocode(geoLati: string, geoLongi: string): string {
     return `https://api-bdc.net/data/reverse-geocode-client?latitude=${geoLati}&longitude=${geoLongi}&localityLanguage=en`;
   }
@@ -38,7 +36,6 @@ class AppURL {
   static leaveApply(payrollBaseURL: string): string {
     return `${payrollBaseURL}androidapps/PostLeaveApplySaveApk`;
   }
-
   static deleteLeave(payrollBaseURL: string, id: any, token: string): string {
     return `${payrollBaseURL}androidapps/GetLeaveTransactionDeleteApk?Id=${id}&Token=${token}`;
   }

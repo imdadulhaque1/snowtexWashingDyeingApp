@@ -37,8 +37,7 @@ import {employeeInfoInterface} from '@interface/userInfo/EmployeeInfoInterface';
 
 const Container = ({children}: any) => {
   const isFocused = useIsFocused();
-  const {getAccessableInfo, setAccessableInfo, getVersionInfo, setVersionInfo} =
-    useAppContext();
+  const {getAccessableInfo, setAccessableInfo} = useAppContext();
   const navigation = useNavigation();
   const {name} = useRoute();
   const {bottom} = useSafeAreaInsets();
@@ -77,7 +76,6 @@ const Container = ({children}: any) => {
   const logoutHandler = async () => {
     await AsyncStorage.removeItem('AsyncUserInfo');
 
-    // setLoginInfo(null);
     navigation.reset({
       // @ts-ignore
       routes: [{name: 'LoginScreen'}],
@@ -160,29 +158,6 @@ const Container = ({children}: any) => {
     isFocused && retrieveAsyncStorageData();
   }, [isFocused]);
 
-  // useEffect(() => {
-  //   versionCheckFunc(currentVersion)
-  //     .then(res => setVersionInfo(res))
-  //     .catch(error => error && setVersionInfo(null));
-  // }, [isFocused, getVersionInfo]);
-
-  // useEffect(() => {
-  //   if (isFocused) {
-  //     const getVersionInfo = async () => {
-  //       try {
-  //         const response = await fetchAppVersionInfo(
-  //           getAccessableInfo.loginInfo?.loginBaseURL,
-  //         );
-  //         setVersionInfo(response);
-  //       } catch (error: any) {
-  //         console.log('Failed to fetch app version info:', error.message);
-  //       }
-  //     };
-
-  //     getVersionInfo();
-  //   }
-  // }, [isFocused]);
-
   const hideModal = () => {
     setIsModalVisible(false);
   };
@@ -191,8 +166,6 @@ const Container = ({children}: any) => {
   const profileImg = `${removeApiSegment(
     getAccessableInfo.loginInfo?.loginBaseURL,
   )}${getAccessableInfo?.userInfo?.Photo}`;
-
-  // const profileImg = `http://182.160.125.3:91/${getAccessableInfo?.userInfo?.Photo}`;
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
@@ -276,7 +249,12 @@ const Container = ({children}: any) => {
                 backgroundColor: COLORS.snowColor,
               },
             }}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                width: '100%',
+              }}>
               <View
                 style={{
                   marginVertical: 10,
@@ -300,8 +278,9 @@ const Container = ({children}: any) => {
               <View
                 style={{
                   paddingHorizontal: 2,
+                  width: '70%',
                 }}>
-                <Text style={styles.menuText}>
+                <Text style={[styles.menuText, {width: '100%'}]}>
                   {getAccessableInfo?.userInfo?.FullName}
                 </Text>
                 <Text style={styles.menuText}>
@@ -535,7 +514,6 @@ const styles = StyleSheet.create({
   logoutContainerStyle: {
     marginVertical: 5,
     backgroundColor: COLORS.errorLight85,
-    // backgroundColor: 'rgba(10,0,21,.4)',
     width: '50%',
     alignSelf: 'center',
     alignItems: 'center',
